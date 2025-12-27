@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, 
+        rgba(135, 206, 235, 0.015) 0%, 
+        rgba(173, 216, 230, 0.02) 50%, 
+        rgba(240, 248, 255, 0.025) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+}
+
+.onboarding-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.onboarding-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(135, 206, 235, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+body.dark-mode .onboarding-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.onboarding-card h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+body.dark-mode .onboarding-card h2 {
+    color: #e0e0e0;
+}
+
+.onboarding-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid rgba(135, 206, 235, 0.3);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-mode .onboarding-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.onboarding-input::placeholder {
+    color: #999;
+}
+
+body.dark-mode .onboarding-input::placeholder {
+    color: #666;
+}
+
+.onboarding-input:focus {
+    outline: none;
+    border-color: #3a7bd5;
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+}
+
+.date-group {
+    margin-bottom: 20px;
+}
+
+.date-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #555;
+}
+
+body.dark-mode .date-group label {
+    color: #ccc;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.date-input {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid rgba(135, 206, 235, 0.3);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .date-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.date-input::placeholder {
+    color: #999;
+}
+
+body.dark-mode .date-input::placeholder {
+    color: #666;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #3a7bd5;
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+}
+
+/* Remove number input arrows */
+.date-input::-webkit-outer-spin-button,
+.date-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.date-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.onboarding-button {
+    width: 100%;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #3a7bd5, #5a9bd5);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3);
+}
+
+.onboarding-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(58, 123, 213, 0.4);
+}
+
+.onboarding-button:active {
+    transform: translateY(0);
+}
+
+/* Welcome Card Specific Styles */
+.welcome-card {
+    padding: 60px 40px;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+body.dark-mode .welcome-title {
+    color: #e0e0e0;
+}
+
+.welcome-title span {
+    color: #3a7bd5;
+    display: block;
+    margin-top: 10px;
+}
+
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .onboarding-card {
+        padding: 30px 20px;
+    }
+    
+    .onboarding-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .date-inputs {
+        flex-direction: column;
+    }
+    
+    .date-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .onboarding-container {
+        padding: 15px;
+    }
+    
+    .onboarding-card {
+        padding: 25px 15px;
+    }
+    
+    .onboarding-card h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .welcome-card {
+        padding: 40px 20px;
+    }
+    
+    .welcome-title {
+        font-size: 1.6rem;
+        margin-bottom: 30px;
+    }
+    
+    .onboarding-input,
+    .date-input {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .onboarding-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .onboarding-card {
+        padding: 50px;
+    }
+    
+    .welcome-card {
+        padding: 80px 50px;
+    }
+}

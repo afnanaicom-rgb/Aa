@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+    --background-color: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --border-color: #D1D5DB;
+    --button-primary-bg: #111827;
+    --button-primary-text: #ffffff;
+    --success-color: #10B981;
+    --egypt-flag: #FF0000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Hide all pages by default */
+.page {
+    display: none;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    padding-top: 5vh;
+}
+
+.page.active {
+    display: block;
+}
+
+.full-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.full-page.active {
+    display: block;
+}
+
+.full-page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #f3f4f6;
+}
+
+/* Auth Header */
+.auth-header {
+    margin-bottom: 40px;
+}
+
+.auth-header .logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 24px;
+}
+
+.auth-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Form Elements */
+.auth-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.phone-input-container {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.country-code {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: #f9fafb;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.egypt-flag {
+    width: 24px;
+    height: 16px;
+    background: linear-gradient(to bottom, #FF0000 0%, #FF0000 33%, #FFFFFF 33%, #FFFFFF 66%, #000000 66%);
+    border-radius: 2px;
+}
+
+.phone-input {
+    flex: 1;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #374151;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.separator:not(:empty)::before { margin-left: .75em; }
+.separator:not(:empty)::after { margin-right: .75em; }
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.social-button:hover {
+    background-color: #f9fafb;
+    border-color: #9CA3AF;
+}
+
+.social-button .icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Verification Code Input */
+.verification-inputs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.verification-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.verification-input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Success Message */
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    color: var(--success-color);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+/* Footer (MODIFIED) */
+.auth-footer {
+    padding: 20px 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    width: 100%;
+    background-color: var(--background-color);
+    /* No longer fixed to the bottom of the viewport */
+}
+
+.auth-footer a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    margin: 0 8px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.auth-footer a:hover {
+    color: var(--text-primary);
+}
+
+/* Other styles for legal pages, loading, etc. */
+/* ... (rest of the CSS) ... */
+
+
+
+/* ===== Dark Mode Styles ===== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-header h1 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-header p {
+    color: #aaa;
+}
+
+body.dark-mode .input-field {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .input-field::placeholder {
+    color: #888;
+}
+
+body.dark-mode .input-field:focus {
+    border-color: rgba(58, 123, 213, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+}
+
+body.dark-mode .country-code {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .submit-button {
+    background: rgba(58, 123, 213, 0.3);
+}
+
+body.dark-mode .submit-button:hover {
+    background: rgba(58, 123, 213, 0.5);
+}
+
+body.dark-mode .separator {
+    color: #888;
+}
+
+body.dark-mode .separator::before,
+body.dark-mode .separator::after {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .social-button {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .social-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .verification-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .verification-input:focus {
+    border-color: rgba(58, 123, 213, 0.5);
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+}
+
+body.dark-mode .success-message {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+body.dark-mode .auth-footer {
+    color: #aaa;
+    background: transparent;
+}
+
+body.dark-mode .auth-footer a {
+    color: #5a9bd5;
+}
+
+body.dark-mode .auth-footer a:hover {
+    color: #7ab5e5;
+}
+
+body.dark-mode .back-button {
+    color: #e0e0e0;
+}
+
+body.dark-mode .back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

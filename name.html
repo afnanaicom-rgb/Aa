@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name - Afnan AI</title>
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    
+    <div class="onboarding-container">
+        <div class="onboarding-card">
+            <h2>Tell us about yourself</h2>
+            
+            <input type="text" id="nameInput" class="onboarding-input" placeholder="Your name" required>
+            
+            <div class="date-group">
+                <label>Date of Birth</label>
+                <div class="date-inputs">
+                    <input type="number" id="dayInput" class="date-input" placeholder="Day" min="1" max="31" required>
+                    <input type="number" id="monthInput" class="date-input" placeholder="Month" min="1" max="12" required>
+                    <input type="number" id="yearInput" class="date-input" placeholder="Year" min="1900" max="2024" required>
+                </div>
+            </div>
+            
+            <button class="onboarding-button" onclick="goToWelcome()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function goToWelcome() {
+            const name = document.getElementById('nameInput').value.trim();
+            const day = document.getElementById('dayInput').value;
+            const month = document.getElementById('monthInput').value;
+            const year = document.getElementById('yearInput').value;
+            
+            if (!name || !day || !month || !year) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Save data to localStorage
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userBirthday', `${year}-${month}-${day}`);
+            
+            // Go to welcome page
+            window.location.href = 'welcome.html';
+        }
+    </script>
+</body>
+</html>

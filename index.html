@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afnan ai It is an artificial intelligence agent that aims to help customers. </title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth-guard.js"></script>
+    <div class="header">
+        <a href="login.html" class="login-button" id="headerLoginButton" data-i18n="login">تسجيل الدخول</a>
+        <div class="header-right">
+            <button class="menu-button" id="menuButton"><i class='bx bx-menu'></i></button>
+            <button class="new-chat-button" id="newChatButton"><i class='bx bx-plus'></i></button>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-top-actions">
+            <a href="pro.html" style="text-decoration: none;">
+                <button class="subscribe-button">
+                    <i class='bx bx-crown'></i><span data-i18n="subscribeNow">اشترك الآن</span>
+                </button>
+            </a>
+        </div>
+        <div class="sidebar-header">
+            <h3 class="sidebar-title" data-i18n="conversations">المحادثات</h3>
+        </div>
+        <div class="sidebar-search-container">
+            <i class='bx bx-search'></i>
+            <input type="search" placeholder="البحث في المحادثات..." class="sidebar-search-input" data-i18n-placeholder="searchConversations">
+        </div>
+        <div class="chat-history-list" id="chatHistoryList">
+            <!-- Chat history items will be inserted here -->
+        </div>
+        <div class="sidebar-bottom">
+            <div class="user-account" id="userAccount">
+                <img id="userProfileImage" src="" alt="صورة المستخدم" class="user-profile-image" style="display: none;">
+                <div class="user-info">
+                    <span id="userName" data-i18n="yourAccount">حسابك</span>
+                    <span id="userEmail" class="user-email" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="sidebar-bottom-actions">
+                <button class="settings-button" onclick="window.location.href='afnan.html'" title="الإعدادات">
+                    <i class='bx bx-cog'></i>
+                </button>
+                <button class="logout-button" id="logoutButton" title="تسجيل الخروج" style="display: none;">
+                    <i class='bx bx-log-out'></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="welcome-content" id="welcomeContent">
+             <img src="logo.png" alt="afnan ai Logo" class="welcome-logo">
+             <p class="welcome-title" id="typingText" data-i18n="chatWithAfnan">تحدث مع afnanai الآن</p>
+        </div>
+
+        <div class="chat-area" id="chatArea"></div>
+
+        <div class="input-container">
+            <div class="suggestion-grid" id="suggestionGrid">
+                <button class="suggestion-card" data-icon="<i class='bx bxs-file-doc'></i>">
+                    <i class='bx bxs-file-doc'></i><span data-i18n="createImage">انشاء لي صوره </span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bx-notepad'></i>">
+                    <i class='bx bx-notepad'></i><span data-i18n="searchInternet">ابحث في الانترنت</span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bxs-report'></i>">
+                    <i class='bx bxs-report'></i><span data-i18n="documentAnalyzer">محلل المستندات</span>
+                </button>
+                <button class="suggestion-card" data-icon="<i class='bx bx-search-alt'></i>">
+                    <i class='bx bx-search-alt'></i><span data-i18n="deepThinking"> التفكير العميق</span>
+                </button>
+            </div>
+
+            <div class="input-wrapper" id="inputWrapper">
+                <div class="input-bar">
+                        <button class="tools-button" id="toolsButton" title="الأدوات"><i class='bx bx-plus'></i></button>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        <input type="file" id="fileInput" accept="*/*" style="display: none;">
+                    <div class="input-content">
+                        <textarea class="chat-textarea" id="chatInput" placeholder="اكتب رسالتك هنا..." rows="1" data-i18n-placeholder="typeMessage"></textarea>
+                    </div>
+                    <button class="send-button" id="sendButton"><i class='bx bx-up-arrow-alt'></i></button>
+                </div>
+            </div>
+            <p class="disclaimer" data-i18n="disclaimer">قد يعرض afnanai معلومات خاطئة لذلك ننصحك بالتحقق من ردوده.</p>
+        </div>
+    </div>
+    
+    <!-- Tools Modal -->
+    <div class="tools-modal" id="toolsModal">
+        <div class="tools-modal-content">
+            <div class="tools-grid">
+                <button class="tool-item" data-tool="image">
+                    <i class='bx bx-image'></i>
+                    <span data-i18n="sendImage">إرسال صورة</span>
+                </button>
+                <button class="tool-item" data-tool="file">
+                    <i class='bx bx-file'></i>
+                    <span data-i18n="sendFile">إرسال ملف</span>
+                </button>
+                <button class="tool-item" data-tool="srish">
+                    <i class='bx bx-search-alt'></i>
+                    <span data-i18n="srishSearch">Srish Search</span>
+                </button>
+                <button class="tool-item" data-tool="dabri">
+                    <i class='bx bx-search'></i>
+                    <span data-i18n="dabriSearch">Dabri Search</span>
+                </button>
+                <button class="tool-item" data-tool="deepthinking">
+                    <i class='bx bx-brain'></i>
+                    <span data-i18n="deepThinking">التفكير العميق</span>
+                </button>
+                <button class="tool-item" data-tool="createimage">
+                    <i class='bx bx-image-add'></i>
+                    <span data-i18n="createImage">إنشاء صورة</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+

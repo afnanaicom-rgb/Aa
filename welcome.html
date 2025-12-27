@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Afnan AI</title>
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    
+    <div class="onboarding-container">
+        <div class="onboarding-card welcome-card">
+            <h1 class="welcome-title">Hey, you <span id="userName">afnan</span></h1>
+            <button class="onboarding-button" onclick="goToHome()">Get Started</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { ref, set } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+        // Display user's name
+        const userName = localStorage.getItem('userName') || 'afnan';
+        document.getElementById('userName').textContent = userName;
+        
+        window.goToHome = async function() {
+            try {
+                // Get current user
+                const user = auth.currentUser;
+                if (!user) {
+                    alert('Please sign in first');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Get user data from localStorage
+                const userId = localStorage.getItem('userId') || '';
+                const userName = localStorage.getItem('userName') || '';
+                const userBirthday = localStorage.getItem('userBirthday') || '';
+
+                // Save user data to Firebase Database
+                const userRef = ref(db, 'users/' + user.uid);
+                await set(userRef, {
+                    id: userId,
+                    name: userName,
+                    birthday: userBirthday,
+                    email: user.email,
+                    createdAt: new Date().toISOString(),
+                    onboardingComplete: true
+                });
+
+                console.log('User data saved successfully');
+
+                // Mark onboarding as complete in localStorage (for backward compatibility)
+                localStorage.setItem('onboardingComplete', 'true');
+                
+                // Go to main page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error saving user data:', error);
+                alert('Error saving data: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Afnan AI</title>
+    <link rel="stylesheet" href="afnan.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="settings-container">
+        <div class="settings-header">
+            <button class="back-button" onclick="window.location.href='index.html'">
+                <i class='bx bx-arrow-back'></i>
+            </button>
+            <h1 data-i18n="settings">Settings</h1>
+        </div>
+
+        <div class="settings-content">
+            <!-- Dark Mode Toggle -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <i class='bx bx-moon setting-icon'></i>
+                    <div class="setting-text">
+                        <h3 data-i18n="darkMode">Dark Mode</h3>
+                        <p data-i18n="darkModeDesc">Switch between light and dark theme</p>
+                    </div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <i class='bx bx-globe setting-icon'></i>
+                    <div class="setting-text">
+                        <h3 data-i18n="language">Language</h3>
+                        <p data-i18n="languageDesc">Select your preferred language</p>
+                    </div>
+                </div>
+                <select id="languageSelect" class="language-select">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="zh">中文</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div class="setting-item clickable" onclick="window.location.href='privacy_policy.html'">
+                <div class="setting-info">
+                    <i class='bx bx-shield setting-icon'></i>
+                    <div class="setting-text">
+                        <h3 data-i18n="privacyPolicy">Privacy Policy</h3>
+                        <p data-i18n="privacyPolicyDesc">Read our privacy policy</p>
+                    </div>
+                </div>
+                <i class='bx bx-chevron-left'></i>
+            </div>
+
+            <!-- Terms of Service -->
+            <div class="setting-item clickable" onclick="window.location.href='terms_of_service.html'">
+                <div class="setting-info">
+                    <i class='bx bx-file-blank setting-icon'></i>
+                    <div class="setting-text">
+                        <h3 data-i18n="termsOfService">Terms of Service</h3>
+                        <p data-i18n="termsOfServiceDesc">Read our terms of service</p>
+                    </div>
+                </div>
+                <i class='bx bx-chevron-left'></i>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="afnan.js"></script>
+</body>
+</html>

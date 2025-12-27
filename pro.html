@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="pro.css">
+</head>
+<body>
+    <script src="i18n.js"></script>
+
+    <div class="subscription-page" id="subscriptionPage">
+        <div class="sub-page-header">
+            <button class="sub-page-back-button" onclick="window.location.href='index.html'"><i class='bx bx-arrow-back'></i></button>
+        </div>
+        <div class="plans-slider-container">
+            <div class="plan-section">
+                <div class="plan-content-card">
+                    <h2 data-i18n="free">Free</h2>
+                    <p class="plan-price"><strong data-i18n="free">مجانية</strong> <span data-i18n="freeForever">/ للأبد</span></p>
+                    <ul>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="dailyMessages7">7 رسائل يومية</span></li>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="basicModel">وصول للنموذج الأساسي</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="plan-section">
+                <div class="plan-content-card pro">
+                    <div class="most-popular-banner" data-i18n="mostPopular">الأكثر شيوعاً</div>
+                    <h2 data-i18n="pro">Pro</h2>
+                    <p class="plan-price"><strong>$5</strong> <span data-i18n="perMonth">/ شهرياً</span></p>
+                    <ul>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="dailyMessages50">50 رسالة يومياً</span></li>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="accessAfnan1">الوصول لنموذج afnan ai 1</span></li>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="fasterSupport">دعم أسرع</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="plan-section">
+                <div class="plan-content-card ultra">
+                    <h2 data-i18n="ultra">Ultra</h2>
+                    <p class="plan-price"><strong>$10</strong> <span data-i18n="perMonth">/ شهرياً</span></p>
+                    <ul>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="unlimitedMessages">رسائل غير محدودة</span></li>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="accessAllModels">الوصول لكل نماذجنا أثناء الذروة</span></li>
+                        <li><i class='bx bx-check-circle'></i> <span data-i18n="accessNewModels">الوصول لأحدث نماذجنا الجديدة</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sub-page-footer" style="margin-top: -40px;">
+            <button class="main-subscribe-button" onclick="showComingSoonPopup()" data-i18n="subscribeNow">اشترك الآن</button>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="comingSoonPopup">
+        <div class="popup-content">
+            <h3 data-i18n="comingSoon">قريبًا!</h3>
+            <p data-i18n="comingSoonText">نعمل حاليًا على تجهيز بوابات الدفع ومميزات الاشتراكات. ستتوفر هذه الخدمة في المستقبل القريب. شكرًا لصبرك!</p>
+            <div class="popup-buttons">
+                <button class="popup-button secondary" onclick="hideComingSoonPopup()" data-i18n="stayHere">البقاء هنا</button>
+                <button class="popup-button primary" onclick="window.location.href='index.html'" data-i18n="backToHome">العودة للرئيسية</button>
+            </div>
+        </div>
+    </div>
+    <script src="pro.js"></script>
+</body>
+</html>
+

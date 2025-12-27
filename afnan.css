@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, 
+        rgba(135, 206, 235, 0.015) 0%, 
+        rgba(173, 216, 230, 0.02) 50%, 
+        rgba(240, 248, 255, 0.025) 100%);
+    min-height: 100vh;
+    color: #333;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+}
+
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(135, 206, 235, 0.2);
+    margin-bottom: 20px;
+}
+
+body.dark-mode .settings-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.back-button {
+    background: transparent;
+    border: 1px solid rgba(135, 206, 235, 0.2);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background: rgba(135, 206, 250, 0.1);
+    border-color: rgba(135, 206, 235, 0.3);
+}
+
+body.dark-mode .back-button {
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.setting-item {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(135, 206, 235, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .setting-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.setting-item.clickable {
+    cursor: pointer;
+}
+
+.setting-item.clickable:hover {
+    background: rgba(135, 206, 250, 0.15);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .setting-item.clickable:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.setting-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.setting-icon {
+    font-size: 1.8rem;
+    color: #3a7bd5;
+}
+
+body.dark-mode .setting-icon {
+    color: #5a9bd5;
+}
+
+.setting-text h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.setting-text p {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+body.dark-mode .setting-text p {
+    color: #aaa;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    display: inline-block;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #3a7bd5;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* Language Select */
+.language-select {
+    padding: 8px 12px;
+    border: 1px solid rgba(135, 206, 235, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-size: 0.95rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.language-select:hover {
+    border-color: rgba(135, 206, 235, 0.4);
+}
+
+body.dark-mode .language-select {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #3a7bd5;
+}
+
+/* Chevron Icon */
+.setting-item > .bx-chevron-left {
+    font-size: 1.5rem;
+    color: #999;
+}
+
+body.dark-mode .setting-item > .bx-chevron-left {
+    color: #666;
+}

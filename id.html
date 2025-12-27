@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID - Afnan AI</title>
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    
+    <div class="onboarding-container">
+        <div class="onboarding-card">
+            <h2>Enter your ID</h2>
+            <input type="text" id="idInput" class="onboarding-input" placeholder="Your ID" required>
+            <button class="onboarding-button" onclick="goToName()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function goToName() {
+            const idValue = document.getElementById('idInput').value.trim();
+            if (!idValue) {
+                alert('Please enter your ID');
+                return;
+            }
+            // Save ID to localStorage
+            localStorage.setItem('userId', idValue);
+            // Go to name page
+            window.location.href = 'name.html';
+        }
+    </script>
+</body>
+</html>
