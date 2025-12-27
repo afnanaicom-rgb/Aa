@@ -1,3 +1,4 @@
+
 // استيراد الخدمات من ملف الإعدادات
 import { auth, db } from "./firebase-config.js";
 
@@ -10,7 +11,8 @@ import {
     GoogleAuthProvider,
     GithubAuthProvider,
     MicrosoftAuthProvider,
-    signInWithPopup,
+    signInWithRedirect,   // ✅ تم التعديل: استخدام Redirect
+    getRedirectResult,    // ✅ تم التعديل: جلب النتيجة بعد العودة
     setPersistence,
     browserLocalPersistence,
     RecaptchaVerifier,
@@ -25,7 +27,7 @@ setPersistence(auth, browserLocalPersistence).catch((error) => {
     console.error("Error setting persistence:", error);
 });
 
-// --- دوال التنقل (جعلناها عامة لتعمل مع HTML onclick) ---
+// --- دوال التنقل ---
 window.openPage = function(pageId) {
     document.querySelectorAll('.page, .full-page').forEach(page => {
         page.classList.remove('active');
@@ -58,13 +60,29 @@ window.closePage = function(pageId) {
 };
 
 // =========================================================
-// بدء تنفيذ الكود فقط بعد تحميل الصفحة بالكامل (الحل للمشكلة)
+// معالجة نتيجة الـ Redirect (تعمل فور تحميل الصفحة)
+// =========================================================
+getRedirectResult(auth)
+    .then((result) => {
+        if (result) {
+            console.log("Redirect Login Successful:", result.user);
+            // لا نحتاج للتوجيه هنا يدوياً لأن onAuthStateChanged ستقوم بالواجب
+            // وتقوم بفحص قاعدة البيانات
+        }
+    })
+    .catch((error) => {
+        console.error("Redirect Login Error:", error);
+        alert("فشل تسجيل الدخول: " + error.message);
+    });
+
+
+// =========================================================
+// تشغيل الكود بعد تحميل الصفحة
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded. Initializing scripts...");
+    console.log("DOM fully loaded. Ready for Redirect login.");
 
     // --- إعداد reCAPTCHA (لتسجيل الدخول بالهاتف) ---
-    // نتحقق من وجود الزر قبل ربط الكابتشا به
     const phoneSubmitBtn = document.getElementById('phoneSubmit');
     if (phoneSubmitBtn) {
         try {
@@ -92,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailBtn = document.getElementById('emailSubmit');
     if (emailBtn) {
         emailBtn.addEventListener('click', async function(e) {
-            e.preventDefault(); // منع تحديث الصفحة إذا كان داخل فورم
+            e.preventDefault();
             const emailInput = document.getElementById('emailInput');
             const email = emailInput ? emailInput.value : "";
             
@@ -119,49 +137,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. معالجة تسجيل الدخول بجوجل
+    // 2. معالجة تسجيل الدخول بجوجل (Redirect) ✅
     const googleBtn = document.getElementById('googleLogin');
     if (googleBtn) {
-        googleBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
+        googleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // منع أي سلوك افتراضي
             const provider = new GoogleAuthProvider();
-            try {
-                await signInWithPopup(auth, provider);
-                // التوجيه سيتم عبر onAuthStateChanged
-            } catch (error) {
-                console.error("Error with Google Sign-In:", error);
-                alert("حدث خطأ: " + error.message);
-            }
+            // استخدام Redirect بدلاً من Popup
+            signInWithRedirect(auth, provider);
         });
     }
 
-    // 3. معالجة تسجيل الدخول بجيت هب
+    // 3. معالجة تسجيل الدخول بجيت هب (Redirect) ✅
     const githubBtn = document.getElementById('githubLogin');
     if (githubBtn) {
-        githubBtn.addEventListener('click', async function(e) {
+        githubBtn.addEventListener('click', function(e) {
             e.preventDefault();
             const provider = new GithubAuthProvider();
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                console.error("Error with GitHub Sign-In:", error);
-                alert("حدث خطأ: " + error.message);
-            }
+            signInWithRedirect(auth, provider);
         });
     }
 
-    // 4. معالجة تسجيل الدخول بمايكروسوفت
+    // 4. معالجة تسجيل الدخول بمايكروسوفت (Redirect) ✅
     const microsoftBtn = document.getElementById('microsoftLogin');
     if (microsoftBtn) {
-        microsoftBtn.addEventListener('click', async function(e) {
+        microsoftBtn.addEventListener('click', function(e) {
             e.preventDefault();
             const provider = new MicrosoftAuthProvider();
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                console.error("Error with Microsoft Sign-In:", error);
-                alert("حدث خطأ: " + error.message);
-            }
+            signInWithRedirect(auth, provider);
         });
     }
 
@@ -177,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            const phoneNumber = '+20' + phoneVal; // تأكد أن كود الدولة مناسب
+            const phoneNumber = '+20' + phoneVal; 
             const appVerifier = window.recaptchaVerifier;
 
             try {
@@ -188,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error("Error sending phone verification code:", error);
                 alert("حدث خطأ: " + error.message);
-                // إعادة تعيين الكابتشا عند الخطأ
                 if(window.recaptchaVerifier) {
                     window.recaptchaVerifier.render().then(function(widgetId) {
                         grecaptcha.reset(widgetId);
@@ -209,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 code += input.value;
             });
 
-            // ملاحظة: تأكد من أن عدد حقول الإدخال في HTML يطابق طول الرمز (عادة 6)
             if (code.length < 4) { 
                 alert("الرجاء إدخال الرمز كاملاً.");
                 return;
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. التحقق من رابط تسجيل الدخول (Email Link Logic)
+    // 7. التحقق من رابط تسجيل الدخول بالبريد
     if (isSignInWithEmailLink(auth, window.location.href)) {
         let email = window.localStorage.getItem('emailForSignIn');
         if (!email) {
@@ -242,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
             signInWithEmailLink(auth, email, window.location.href)
                 .then(() => {
                     window.localStorage.removeItem('emailForSignIn');
-                    // onAuthStateChanged will handle redirection
                 })
                 .catch((error) => {
                     console.error("Error signing in with email link:", error);
@@ -250,9 +250,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
     }
-}); // نهاية DOMContentLoaded
+}); 
 
-// 8. مراقبة حالة المصادقة (يعمل بشكل مستقل خارج DOMContentLoaded لأنه Listener)
+// 8. مراقبة حالة المصادقة (هذا الجزء سيعمل تلقائياً بعد العودة من Google Redirect)
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         console.log("User is signed in:", user.uid);
@@ -260,28 +260,22 @@ onAuthStateChanged(auth, async (user) => {
             const userRef = ref(db, 'users/' + user.uid);
             const snapshot = await get(userRef);
             
-            // تحقق بسيط لتجنب التكرار إذا كنا بالفعل في الصفحة المطلوبة
             const currentPath = window.location.pathname;
             
+            // التوجيه بناءً على وجود بيانات المستخدم
             if (!snapshot.exists()) {
                 if (!currentPath.includes('id.html')) {
-                    console.log("Redirecting to id.html...");
+                    console.log("New user, redirecting to id.html...");
                     setTimeout(() => { window.location.href = 'https://studio.afnanai.com/id.html'; }, 1000);
                 }
             } else {
                 if (!currentPath.includes('index.html')) {
-                    console.log("Redirecting to index.html...");
+                    console.log("Existing user, redirecting to index.html...");
                     setTimeout(() => { window.location.href = 'https://studio.afnanai.com/index.html'; }, 1000);
                 }
             }
         } catch (error) {
             console.error("Error checking user data:", error);
-        }
-    } else {
-        console.log("User is signed out");
-        // إذا لم نكن في صفحة تسجيل الدخول، نذهب إليها
-        if (!window.location.pathname.includes('login.html')) {
-             // window.location.href = 'https://studio.afnanai.com/login.html'; // فعل هذا السطر عند الحاجة
         }
     }
 });
